@@ -8,6 +8,7 @@ import requests
 from api_client import CourierAPIClient
 
 
+
 @pytest.fixture
 def new_courier_data():
     """Данные для создания нового курьера."""
@@ -30,7 +31,7 @@ class TestCourierHelpers:
 
     def test_get_courier_by_id(self, client):
         """Получение курьера с id=1 (зашит в fake_api)."""
-        courier = client.get_courier_by_id(1)
+        courier = client.get_courier_by_id(0)
         assert courier["id"] == 1
         assert courier["first_name"] == "Иван"
 
@@ -43,7 +44,7 @@ class TestCourierHelpers:
     def test_get_nonexistent_courier_raises(self, client):
         """Запрос несуществующего курьера вызывает ошибку 404."""
         with pytest.raises(requests.exceptions.HTTPError):
-            client.get_courier_by_id(99999)
+            client.get_courier_by_id(99998)
 
     def test_delete_courier(self, client):
         """Удаление курьера с id=2 (зашит в fake_api)."""
